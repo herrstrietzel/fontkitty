@@ -321,9 +321,8 @@ textarea {
 */
 
 .details-target summary {
-    /* text-align: center;
+    text-align: center;
     margin-left: -1em;
-     */
     font-weight: 700;
     font-size: 1.2em;
     margin-bottom: 0;
@@ -350,12 +349,6 @@ textarea {
     border-bottom: 2px solid var(--color-text);
 
 }
-
-
-.details-target summary {
-    text-align: center;
-}
-
 
 
 
