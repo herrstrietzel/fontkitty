@@ -47,16 +47,24 @@
     <script src="lib/ps-autocomplete/ps-autocomplete.js" defer></script>
 
     <!--filter-->
-    <script src="lib/ps-filter/ps-filter.js"></script>
+    <script src="lib/ps-filter/ps-filter.js" defer></script>
 
 
-    <script src="js/unicode-helpers.js"></script>
-    <script src="js/parseFonts.js"></script>
+    <script src="js/unicode-helpers.js" defer></script>
+    <script src="js/parseFonts.js" defer></script>
 
 
     <script src="js/fetchAndParseCSS.js" defer></script>
     <script src="js/addFilterInputs.js" defer></script>
     <script src="js/main.js" defer></script>
+
+
+    <!-- decompress woff2 -->
+    <script src="https://unpkg.com/wawoff2@2.0.1/build/decompress_binding.js" defer></script>
+
+    <!-- opentype.js core -->
+    <script src='https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js' defer></script>
+
 
 
 </head>
@@ -81,7 +89,7 @@
             <div class="layout">
                 <div class="logo-wrap mrg-1em mrg-btt ">
                     <img id="logo" class="fnt-siz-3em logo-img mrg-cnt hgh-3em" width="33%" height="auto"
-                        src="img/logo-fontkitty-04.2.svg" alt="fontkitty logo">
+                        src="img/logo-fontkitty_RZ.svg" alt="fontkitty logo">
                 </div>
 
                 <h2 class="p-intro txt-cnt p fnt-siz-1em fnt-wgh-400 fnt-wgt-700  mrg-1em mrg-btt">Create FontKits from
@@ -247,17 +255,6 @@
 
 
     </div>
-
-
-
-
-
-    <!-- decompress woff2 -->
-    <script src="https://unpkg.com/wawoff2@2.0.1/build/decompress_binding.js"></script>
-
-    <!-- opentype.js core -->
-    <script src='https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js'></script>
-
 
 
 
