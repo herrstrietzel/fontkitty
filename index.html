@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fontkitty – a fontkit creator</title>
+    <meta name="description" content="Create FontKits from resources like
+    external CSS, font file links or uploadeds">
+
+
+    <link rel="icon" href="img/logo-fontkitty-favicon.svg">
+    <link rel="mask-icon" href="img/logo-fontkitty-favicon-4.2.svg" color="#000000">
+    <meta name="theme-color" content="#ffffff">
+
+    <link id="cssMain" rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+
+
+    <!-- 
+    -->
+    <link rel="stylesheet" href="lib/ps-style-inputs/ps-style-inputs.css">
+    <script src="lib/ps-style-inputs/ps-style-inputs.js" defer></script>
+
+
+    <link rel="stylesheet" href="lib/ps-textarea-tools/ps-textarea-tools.css">
+    <script src="lib/ps-textarea-tools/ps-textarea-tools.js" defer></script>
+    <link rel="stylesheet" href="lib/details-enhanced/details-enhanced.css">
+    <script src="lib/details-enhanced/openTargetDetails.js" defer></script>
+
+    <!-- 
+        <link rel="stylesheet" href="css/list.css">
+    <style id="stylePreview"></style>
+    -->
+
+    <!-- preview style -->
+
+    <link rel="stylesheet" href="lib/ps-icons/ps-icons.css">
+    <script src="lib/ps-icons/ps-icons.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.2.2/dist/jszip.js" defer></script>
+
+    <!-- load md-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/UmemotoCtrl/mdpjs@0.1.4/js/mdp.js" defer></script>
+    <script src="lib/ps-loadmd/ps-loadmd.js" defer></script>
+
+    <link rel="stylesheet" href="lib/ps-autocomplete/ps-autocomplete.css">
+    <script src="lib/ps-autocomplete/ps-autocomplete.js" defer></script>
+
+    <!--filter-->
+    <script src="lib/ps-filter/ps-filter.js"></script>
+
+
+    <script src="js/unicode-helpers.js"></script>
+    <script src="js/parseFonts.js"></script>
+
+
+    <script src="js/fetchAndParseCSS.js" defer></script>
+    <script src="js/addFilterInputs.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+
+</head>
+
+<body id="body" class="body details-plus init hide-sidebar hide-help hide-info hide-preview hide-footer scrollbar">
+
+
+    <!-- 
+        <div data-icon-map></div>
+    -->
+    <!-- init grid -->
+    <div class="grd-main gap-2em pdd-1em">
+
+        <a class="lnk-github" href="https://github.com/herrstrietzel/fontkitty" title="See github repository">
+            <span data-icon="github-outine"></span>
+        </a>
+
+        <!-- header -->
+
+        <header class="header layout pst-rlt" id="mainHeader">
+
+            <div class="layout">
+                <div class="logo-wrap mrg-1em mrg-btt ">
+                    <img id="logo" class="fnt-siz-3em logo-img mrg-cnt hgh-3em" width="33%" height="auto"
+                        src="img/logo-fontkitty-04.2.svg" alt="fontkitty logo">
+                </div>
+
+                <h2 class="p-intro txt-cnt p fnt-siz-1em fnt-wgh-400 fnt-wgt-700  mrg-1em mrg-btt">Create FontKits from
+                    external CSS URLs, font file links or uploaded font files</h2>
+                <!-- 
+                    <p class="txt-cnt"><strong>URLs must permit cross origin access.</strong></p>
+                -->
+            </div>
+
+        </header>
+
+
+        <!-- search/ file input -->
+        <article class="search layout" id="articleSearch">
+            <div id="inputWrap" class="inputWrap search-wrap pst-rlt mrg-1em mrg-btt">
+
+                <svg class="svg-input-bg pst-abs " width='100%' height='100%' style='--stroke-width:3px;'>
+                    <rect x='0' y='0' width='100%' height='100%' rx='10' fill='none' stroke='#f00'
+                        style='transform:translate(var(--stroke-width), var(--stroke-width)); stroke:var(--color-stroke, black); stroke-width:var(--stroke-width); width:calc(100% - (var(--stroke-width, 2.5px) * 2)) ; height:calc(100% - (var(--stroke-width, 2.5px) * 3)) ;stroke-dasharray:calc(var(--stroke-width, 2.5px) * 4) calc(var(--stroke-width, 2.5px) * 2.5);'
+                        stroke-linecap='round' />
+                </svg>
+
+                <!-- 
+                    https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap
+                -->
+                <input class="inputs inputUrl" type="text" name="url" data-list="cssList" id="inputUrl"
+                    value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.css"
+                    placeholder="Enter a CSS or font URL or drop a font file"
+                    data-search="https://herrstrietzel.github.io/google-font-finder/cache/fontList_autocomplete.json"
+                    data-value="url" data-label="label" autocomplete="off">
+
+                <button type="button" class="btn-download-icon btn-non pst-abs rgh-0 top-0" id="btnUploadIcon"
+                    data-icon="upload" aria-label="upload font file" title="Upload font file"></button>
+
+                <!-- file input -->
+                <p class="sr-only"><label>Upload font file</label><input type="file" id="inputFontFile" name="fontFile"
+                        accept=".woff2,.woff,.ttf,.otf"></p>
+            </div>
+
+            <ul class="filelist li-inl" id="filelist"></ul>
+            <p class="errorReport txt-cnt" id="errorReport"></p>
+
+
+
+        </article>
+
+
+        <!-- toolbar/settings  -->
+        <aside class="sidebar ">
+
+            <nav class="nav dsp-flx flx-drc-clm --pst-stc lft-0 top-0 pdd-0-5em fnt-siz-1-5em row-gap-0-5em">
+                <button class="btn-non btn btn-toggle btn-toggle-settings" data-icon="settings" data-target="body"
+                    data-toggle-class="hide-sidebar" data-toggle-classes="hide-sidebar show-sidebar"
+                    title="settings"></button>
+                <a href="#about" class="btn-non btn btn-toggle btn-toggle-info" data-icon="info" data-target="body"
+                    data-toggle-class="hide-info" data-toggle-classes="hide-info show-info" title="info"></a>
+                <a href="#help" class="btn-non btn btn-toggle btn-toggle-question" data-icon="question"
+                    data-target="body" data-toggle-class="hide-help" data-toggle-classes="hide-help show-help"
+                    title="help"></a>
+            </nav>
+
+            <div class="sidebar-wrp pst-stc pdd-1em pdd-top scroll-content scrollbar">
+                <details class="details-plus" open>
+                    <summary class="h3">Output options</summary>
+                    <p>
+                        <label><input class="inputs" type="radio" name="outputFormat" value="zip" checked>Fontkit
+                            (zip)</label>
+                        <label><input class="inputs" type="radio" name="outputFormat" value="base64">Standalone CSS
+                            (Base64)</label>
+                    </p>
+
+                    <h3>Display</h3>
+                    <p>
+                        <label><input class="inputs" type="radio" name="display" value="swap" checked>Fontkit
+                            swap</label>
+                        <label><input class="inputs" type="radio" name="display" value="block">block</label>
+                        <label><input class="inputs" type="radio" name="display" value="optional">optional</label>
+                        <label><input class="inputs" type="radio" name="display" value="auto">auto</label>
+                        <label><input class="inputs" type="radio" name="display" value="fallback">fallback</label>
+                        <label><input class="inputs" type="radio" name="display" value="none">none</label>
+                    </p>
+
+                    <h3>Include in Fontkit</h3>
+                    <p>
+                        <label><input class="inputs" type="checkbox" name="onlyFontFace" value="1" checked>Only
+                            Fontface</label>
+                        <label><input class="inputs" type="checkbox" name="onlyModern" value="1" checked>Exclude
+                            fallback
+                            formats
+                            (prefer woff2)</label>
+                        <label><input class="inputs" type="checkbox" name="addSample" value="1" checked>Add sample
+                            HTML</label>
+                    </p>
+                    <p>
+                    <h3>Font directory: </h3>
+                    <input class="inputs" type="text" id="inputPath" name="path" value="../fonts/">
+                    </p>
+                </details>
+
+
+                <details class="details-plus details-filter" open>
+                    <summary class="h3">Filter by properties</summary>
+                    <div id="propFilterInputs">
+
+                    </div>
+
+                </details>
+
+
+            </div>
+        </aside>
+
+
+
+        <footer class="footer layout slide-content-vertical slide-content-vertical-hidden" id="footer">
+
+            <!-- download btn -->
+            <p><a class="btn-default btn-download-fontkit fnt-siz-1-5em" id="btnDownload" href="#"
+                    data-icons="download spinner" data-states="init loading download" data-icon-state="1"
+                    download="fontface.zip"><span class="btn-label">Get fontkit</span><span
+                        class="btn-label-status"></span></a></p>
+
+
+            <!-- CSS/preview -->
+            <article class="article-preview grd grd-1 grd-ld-2 ">
+                <section class="pdd-0-5em brd brd-rad dsp-flx flx-drc-clm">
+                    <h3>New Css</h3>
+                    <textarea id="fontCss" class="brd-non scrollbar scroll-content code fnt-siz-0-75em"
+                        spellcheck="false" readonly data-tools="copy download" data-file="font.css"></textarea>
+                </section>
+
+
+                <section class="pdd-0-5em brd  brd-rad dsp-flx flx-drc-clm">
+                    <h3>Preview</h3>
+                    <!-- 
+                        <article id="articlePrev" contenteditable="" spellcheck="false"></article>
+                    -->
+                    <div class="div scrollbar scroll-content dsp-flx flx-drc-clm">
+                        <iframe id="iframePreview" src="" frameborder="0" class="fnt-siz-1em">
+                        </iframe>
+                    </div>
+                </section>
+            </article>
+        </footer>
+
+
+        <article class="info layout hentry pdd-1em pdd-top">
+            <section id="about">
+                <details class="details-target">
+                    <summary>About Fontkitty</summary>
+                    <section data-md="README.md"></section>
+                </details>
+            </section>
+
+            <section id="help">
+                <details class="details-target">
+                    <summary>Help</summary>
+                    <section data-md="help.md"></section>
+                </details>
+            </section>
+            </aricle>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- decompress woff2 -->
+    <script src="https://unpkg.com/wawoff2@2.0.1/build/decompress_binding.js"></script>
+
+    <!-- opentype.js core -->
+    <script src='https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js'></script>
+
+
+
+
+</body>
+
+</html>

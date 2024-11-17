@@ -1,0 +1,36 @@
+/**
+* toolbar
+*/
+.toolbar-wrap {
+    height: 2em;
+    width: 10em;
+    text-align: right;
+    display: flex;
+    gap: 0.5em;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.btn-toolbar {
+    background: var(--color-text);
+    color: var(--color-bg);
+    padding: 0.3em;
+    width: 1.75em;
+    height: 1.75em;
+    border-radius: 50%;
+
+    .icn-svg {
+        margin: 0
+    }
+}
+
+.btn-toggle.active .icn-svg {
+    stroke-width: 10px;
+    transform: scale(1.2);
+}
+
+.btn-toggle .icn-svg {
+    stroke-width: 6px;
+    transition: var(--transition, 0.3s);
+    transform-origin: center;
+}
