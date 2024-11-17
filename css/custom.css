@@ -297,10 +297,7 @@ textarea {
 }
 
 
-
-
 /*
-
 .details-target {
     display: none
 }
@@ -308,7 +305,6 @@ textarea {
 :target .details-target {
     display: block
 }
-
 */
 
 .details-target summary {
