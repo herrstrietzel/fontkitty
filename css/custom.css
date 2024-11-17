@@ -194,8 +194,13 @@ textarea {
 
 .slide-content-vertical-hidden {
     max-height: 0vh;
+}
+
+.hide-preview  
+.slide-content-vertical-hidden {
     visibility: hidden;
 }
+
 
 .show-preview .footer {
     max-height: 80vh;
