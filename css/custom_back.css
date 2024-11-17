@@ -4,17 +4,6 @@
     --border-width: 2px;
 }
 
-h1 {
-    font-size: 1.75em
-}
-
-h2 {
-    font-size: 1.3em
-}
-
-h3 {
-    font-size: 1em
-}
 
 
 
@@ -146,7 +135,8 @@ textarea {
 
 .grd-main {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr repeat(auto);
+    grid-auto-rows: min-content repeat(auto);
     grid-template-areas:
         "header header"
         "search search"
@@ -198,6 +188,7 @@ textarea {
     padding-bottom: 0em;
 }
 
+
 .search {
     margin-top: 1.5em;
 }
@@ -225,8 +216,7 @@ textarea {
 }
 
 .sidebar-wrp {
-    padding-right: 1em;
-    padding-bottom: 2em;
+    padding-right: 1em
 }
 
 .sidebar {
@@ -280,7 +270,6 @@ textarea {
 
         .grd-main {
             margin-left: calc((var(--sidebar-width) * -1) - var(--gap, 2em) * 2 - 5px);
-
         }
 
     }
@@ -338,7 +327,6 @@ textarea {
 }
 */
 
-
 .details-target {
     margin-bottom: 0.5em;
     transition: 0.3s;
@@ -346,8 +334,8 @@ textarea {
 
 .details-target[open] {
     margin-bottom: 1em;
-    padding-bottom: 1em;
-    border-bottom: 2px solid var(--color-text);
+    padding-bottom:1em;
+    border-bottom:2px solid var(--color-text);
 
 }
 
@@ -355,7 +343,6 @@ textarea {
 .details-target summary {
     text-align: center;
 }
-
 
 
 
@@ -380,31 +367,4 @@ textarea {
 
 .label-filter {
     font-weight: 400;
-}
-
-/* sidebar and nav */
-@media (min-width: 640px) {
-
-    .sidebar {
-
-        --sidebar-width: clamp(25%, 20em, 33vw);
-        --sidebar-width: 20em;
-
-        margin: unset;
-    }
-
-    .hide-sidebar .nav {
-
-        transform: translateX(4em);
-    }
-
-    .show-sidebar .nav {
-        transform: translateX(0.5em);
-    }
-
-}
-
-
-.nav {
-    transition: 0.3s transform;
 }

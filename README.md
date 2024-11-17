@@ -14,17 +14,18 @@ Create fontkits from:
 * external font URLs
 * autocomplete list of google fonts (> 1700 families – including variable and static version )
 * filter by properties like style, font-weights or languages/subsets
-* create selfcontained CSS with base64 encoded fonnt sources (handy for demos or SVG font embedding)
 * option to remove legacy formats (e.g. truetype, otf)
+* create selfcontained CSS with base64 encoded fonnt sources (handy for demos or SVG font embedding)
+* create text based subsets (only for google font query URLs)
 
 ### Limitations
-* no custom subsetting – fontkitty doesn't change any font files
+* no custom subsetting for font URLs or files – fontkitty doesn't change any font files
 * no support for legacy format like `.svg` or `.eot`
 
 ### Differences to other tools
 While there are already great tools (see section "Alternatives") they come with other limitations:  
-* you can't scrape font files fromn URLs
-* limited to google fonts
+* you can't scrape font files from URLs
+* mostly limited to google fonts
 * converted font files are recompiled which may break more advanced features like variable font axes or change hinting instructions
 * missing option to choose between variable and static font output
 
@@ -38,7 +39,7 @@ All external font sources referenced in external URLs (fonts or `@import`) are r
 * [mdp.js](https://github.com/UmemotoCtrl/mdpjs) for readme parsing
 
 ### Found a bug?
-Please file a bug report under [Issues](https://github.com/herrstrietzel/fontkitty/issues).
+Please file a bug report under [Issues](https://github.com/herrstrietzel/fontkitty/issues). You may also post in the discussions section.
 
 
 ### Related projects  
