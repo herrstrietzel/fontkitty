@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,10 +29,10 @@
     <!-- 
         <link rel="stylesheet" href="css/list.css">
     <style id="stylePreview"></style>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net/npm/jszip@3.2.2/dist/jszip.js https://cdn.jsdelivr.net/gh/UmemotoCtrl/mdpjs@0.1.4/js/mdp.js https://unpkg.com/wawoff2@2.0.1/build/decompress_binding.js https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js; 
+    connect-src *; style-src 'self' 'unsafe-inline'; style-src-elem * data: blob:;img-src 'self' https://raw.githubusercontent.com/herrstrietzel/fontkitty/">
     -->
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net/npm/jszip@3.2.2/dist/jszip.js https://cdn.jsdelivr.net/gh/UmemotoCtrl/mdpjs@0.1.4/js/mdp.js https://unpkg.com/wawoff2@2.0.1/build/decompress_binding.js https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js; 
-    connect-src * data: blob:; style-src 'self' 'unsafe-inline'; img-src 'self' https://raw.githubusercontent.com/herrstrietzel/fontkitty/">
 
     <!-- preview style -->
 
@@ -115,9 +116,8 @@
                 <!-- 
                     https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap
                 -->
-                <input  title="Enter URL" class="inputs inputUrl" type="text" name="url" data-list="cssList" id="inputUrl"
-                    value=""
-                    placeholder="Enter a CSS or font URL or drop a font file"
+                <input title="Enter URL" class="inputs inputUrl" type="text" name="url" data-list="cssList"
+                    id="inputUrl" value="" placeholder="Enter a CSS or font URL or drop a font/CSS file"
                     data-search="https://herrstrietzel.github.io/google-font-finder/cache/fontList_autocomplete.json"
                     data-value="url" data-label="label" autocomplete="off">
 
@@ -125,8 +125,8 @@
                     data-icon="upload" aria-label="upload font file" title="Upload font file"></button>
 
                 <!-- file input -->
-                <p class="sr-only"><label for="inputFontFile">Upload font file</label><input type="file" id="inputFontFile" name="fontFile"
-                        accept=".woff2,.woff,.ttf,.otf"></p>
+                <p class="sr-only"><label for="inputFontFile">Upload font file</label><input type="file"
+                        id="inputFontFile" name="fontFile" accept=".woff2,.woff,.ttf,.otf,.css"></p>
             </div>
 
             <ul class="filelist li-inl" id="filelist"></ul>
@@ -183,10 +183,21 @@
                         <label><input class="inputs" type="checkbox" name="addSample" value="1" checked>Add sample
                             HTML</label>
                     </p>
+
+
+                    <h3>Font directory</h3>
                     <p>
-                    <h3>Font directory: </h3>
-                    <input aria-label="Font directory"  class="inputs" type="text" id="inputPath" name="path" value="../fonts/">
+                        <input aria-label="Font directory" class="inputs" type="text" id="inputPath" name="path"
+                            value="../fonts/">
                     </p>
+
+                    <h3>Custom subset</h3>
+                    <p>
+                        Only for google API queries – appends a <code>&text</code> query parameter <br>
+                        <input aria-label="Custom subset" class="inputs" type="text" id="inputCustomSubset" name="customSubset"
+                            value="">
+                    </p>
+
                 </details>
 
 
@@ -217,8 +228,9 @@
             <article class="article-preview grd grd-1 grd-ld-2 ">
                 <section class="pdd-0-5em brd brd-rad dsp-flx flx-drc-clm">
                     <h3>New Css</h3>
-                    <textarea aria-label="css data" aria-live="polite" id="fontCss" class="brd-non scrollbar scroll-content code fnt-siz-0-75em"
-                        spellcheck="false" readonly data-tools="copy download" data-file="font.css"></textarea>
+                    <textarea aria-label="css data" aria-live="polite" id="fontCss"
+                        class="brd-non scrollbar scroll-content code fnt-siz-0-75em" spellcheck="false" readonly
+                        data-tools="copy download" data-file="font.css"></textarea>
                 </section>
 
 
@@ -228,7 +240,8 @@
                         <article id="articlePrev" contenteditable="" spellcheck="false"></article>
                     -->
                     <div class="div scrollbar scroll-content dsp-flx flx-drc-clm">
-                        <iframe title="Font preview frame" id="iframePreview" src="" frameborder="0" class="fnt-siz-1em">
+                        <iframe title="Font preview frame" id="iframePreview" src="" frameborder="0"
+                            class="fnt-siz-1em">
                         </iframe>
                     </div>
                 </section>

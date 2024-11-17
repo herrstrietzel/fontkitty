@@ -11,6 +11,12 @@
 
 async function updateFontsInputAndCSS(inputValue) {
 
+
+    // toggle sidebar
+    if (document.body.classList.contains('hide-sidebar')) {
+        document.body.classList.remove('hide-sidebar')
+    }
+
     // reset field display  and values
     body.classList.replace('show-preview', 'hide-preview');
     fontCss.value = '';
@@ -93,7 +99,7 @@ async function updateFontsInputAndCSS(inputValue) {
     if (fontData.fontFaceArr.length <= 8) {
         await renderPreview(fontData)
     } else {
-        errorReport.textContent = `The loaded CSS contains ${fontData.fontFaceArr.length} fonts. Preview is also updated when you click the font kit download button. This way you can filter the preview to show only selected fonts and reduce filesize beforehand.`
+        errorReport.textContent = `The loaded CSS contains ${fontData.fontFaceArr.length} fonts – that's fine. However, you may check the filter options to the left to reduce the total filesize and speed up the  fontkit creation. Preview gets updated when you click the font kit download button.`
     }
 
 }
@@ -142,15 +148,34 @@ async function getFontFaceObjectArr(url) {
     }
     // is CSS
     else {
-        let res = await fetch(url);
 
-        // error report - quit
-        if (!res.ok) {
-            data.errors.push('Couldn’t fetch source. Check for misspelled URLs. Also, external resources must allow cross-origin access – check CORS headers.');
-            //console.log('error');
-            return data;
+        
+
+        // css file upload - get the text content
+        if (isFile) {
+            css = await url.text()
+
+        } else {
+
+            // if is google you can add a custom subset param
+            if( url.includes('googleapis.com')  && url.includes('?family=')   ){
+                let textQuery = settings.customSubset ? `&text=${settings.customSubset}` : '';
+                url +=textQuery;
+            }
+
+
+            let res = await fetch(url);
+
+            // error report - quit
+            if (!res.ok) {
+                data.errors.push('Couldn’t fetch source. Check for misspelled URLs. Also, external resources must allow cross-origin access – check CORS headers.');
+                //console.log('error');
+                return data;
+            }
+            css = await res.text()
         }
-        css = await res.text()
+
+
 
     }
 
@@ -179,6 +204,9 @@ async function getFontFaceObjectArr(url) {
         let importCss = '';
         for (let i = 0, len = imports.length; len && i < len; i++) {
             let src = imports[i].href;
+
+            //must be external src
+            if(!src.includes('//')) continue;
 
             let res = await (fetch(src))
             if (res.ok) {
@@ -211,7 +239,7 @@ async function getFontFaceObjectArr(url) {
 
     fontFaceRules.forEach((rule, i) => {
         let style = rule.style;
-        let subset = hasSubset ? `/* ${subsets[i]} */\n` : '';
+        let subset = hasSubset ? `\n/* ${subsets[i]} */\n` : '';
 
         let item = {
             fontFamily: style.getPropertyValue('font-family').replaceAll('"', ""),
@@ -240,13 +268,19 @@ async function getFontFaceObjectArr(url) {
             //let ext = item.file ? item.file.name.split('.').slice(-1)[0] : src.split('.').slice(-1)[0];
             let fontExts = ['woff2', 'woff', 'ttf', 'otf'];
             let ext = !fontExts.includes(item.ext) ? src.split('.').slice(-1)[0] : item.ext;
+
+            if(ext.includes('kit=')) {
+                ext='woff2';
+                item.ext= ext;
+                item.subset = 'text_'+settings.customSubset;
+            }
+
             //console.log('ext: ', ext);
             //let ext = src.split('.').slice(-1)[0];
             let identifier = ext === 'ttf' ? 'truetype' : (ext === 'otf' ? 'opentype' : ext);
             //console.log('idetifier:', item, src, 'format:', ext, identifier);
             item.formats.push(identifier)
         })
-
 
         // add file object
         if (isFile) item.file = url;
@@ -350,15 +384,6 @@ async function compileFilteredCSS(fontData, settings) {
 
         css += newCss;
 
-        // prettyfy
-        /*
-        css = css
-            .replaceAll('\t', '')
-            .replaceAll('{', '{\n')
-            .replaceAll('}', '}\n')
-            .replaceAll(';', ';\n');
-            */
-
         for (let i = 0; i < src.length; i++) {
             let url = src[i];
             let newFilename = path + srcLocal[i];
@@ -405,22 +430,22 @@ async function compileFilteredCSS(fontData, settings) {
                 }
             }
 
-            // add element style rules
-            if (!settings.onlyFontFace) css += styleRules.join('\n');
-
-
-
             //replace urls with new fontkit url
             css = css.replaceAll(url, newFilename).replaceAll('""', '"')
-
         }
     }
 
+    // append element style rules
+    if (!settings.onlyFontFace) {
+        let styleRulesStr = styleRules.join('\n')
+            .replaceAll('\t', '')
+            .replaceAll('{', '{\n')
+            .replaceAll('}', '}\n')
+            .replaceAll('; ', ';\n');
 
+        css += styleRulesStr
+    }
 
-
-
-
-    return css
+    return css.trim()
 }
 

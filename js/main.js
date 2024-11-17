@@ -45,24 +45,22 @@ for (let i = 0, len = inputs.length; len && i < len; i++) {
 
     inp.addEventListener('input', async (e) => {
 
-        // toggle sidebar
-        if (document.body.classList.contains('hide-sidebar')) {
-            document.body.classList.remove('hide-sidebar')
-        }
-
         let value = inp.value;
+        let url = inputUrl.value;
 
         /**
          * if is url field
          * reset if url was changed
          */
-        if (inp.id === 'inputUrl') {
+        if (inp.id === 'inputUrl' || (inp.id === 'inputCustomSubset' && url.includes('googleapis.com')) ) {
 
             //url too short
-            if (value.lenghth < 5 || (!value.includes('http') || !value.includes('/'))) return false
+            if ( url.lenghth < 5 || (!url.includes('http') || !url.includes('/')) ) return false
 
             // update input 
-            await updateFontsInputAndCSS(value)
+            await updateFontsInputAndCSS(url)
+
+        } else {
 
         }
 
@@ -301,6 +299,7 @@ function getAbsoluteURLs(cssUrl, font) {
 function getLocalFontName(font) {
 
     let { fontFamily, fontWeight, fontStyle, fontStretch, subset, src } = font;
+    subset = settings.customSubset ? 'text_'+settings.customSubset : subset;
 
     /**
      * create readable font file names
@@ -323,12 +322,12 @@ function getLocalFontName(font) {
 
 
     src.forEach(url => {
-        let ext = url.split('.').slice(-1)[0];
+        let ext = url.includes('kit=') ? 'woff2' : url.split('.').slice(-1)[0];
+
         if (url.includes('blob:')) {
             ext = font.ext
         }
         font.srcLocal.push(fontname + '.' + ext)
-
     })
 
     return font;

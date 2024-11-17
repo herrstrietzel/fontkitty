@@ -135,7 +135,8 @@ textarea {
 
 .grd-main {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr repeat(auto);
+    grid-auto-rows: min-content repeat(auto);
     grid-template-areas:
         "header header"
         "search search"
@@ -187,6 +188,7 @@ textarea {
     padding-bottom: 0em;
 }
 
+
 .search {
     margin-top: 1.5em;
 }
@@ -228,7 +230,7 @@ textarea {
 }
 
 
-.input-wrap{
+.input-wrap {
     user-select: none;
 }
 
@@ -324,6 +326,23 @@ textarea {
     margin-bottom: 0.5em;
 }
 */
+
+.details-target {
+    margin-bottom: 0.5em;
+    transition: 0.3s;
+}
+
+.details-target[open] {
+    margin-bottom: 1em;
+    padding-bottom:1em;
+    border-bottom:2px solid var(--color-text);
+
+}
+
+
+.details-target summary {
+    text-align: center;
+}
 
 
 
