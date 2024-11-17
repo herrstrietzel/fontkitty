@@ -235,8 +235,6 @@ async function getFontFaceObjectArr(url) {
             css: ''
         }
 
-        console.log(item);
-
 
         item.src.forEach(src => {
             //let ext = item.file ? item.file.name.split('.').slice(-1)[0] : src.split('.').slice(-1)[0];
