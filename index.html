@@ -117,7 +117,7 @@
                     data-icon="upload" aria-label="upload font file" title="Upload font file"></button>
 
                 <!-- file input -->
-                <p class="sr-only"><label>Upload font file</label><input type="file" id="inputFontFile" name="fontFile"
+                <p class="sr-only"><label for="inputFontFile">Upload font file</label><input type="file" id="inputFontFile" name="fontFile"
                         accept=".woff2,.woff,.ttf,.otf"></p>
             </div>
 
@@ -177,7 +177,7 @@
                     </p>
                     <p>
                     <h3>Font directory: </h3>
-                    <input class="inputs" type="text" id="inputPath" name="path" value="../fonts/">
+                    <input aria-label="Font directory"  class="inputs" type="text" id="inputPath" name="path" value="../fonts/">
                     </p>
                 </details>
 
@@ -220,7 +220,7 @@
                         <article id="articlePrev" contenteditable="" spellcheck="false"></article>
                     -->
                     <div class="div scrollbar scroll-content dsp-flx flx-drc-clm">
-                        <iframe id="iframePreview" src="" frameborder="0" class="fnt-siz-1em">
+                        <iframe title="Font preview frame" id="iframePreview" src="" frameborder="0" class="fnt-siz-1em">
                         </iframe>
                     </div>
                 </section>
