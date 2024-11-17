@@ -17,6 +17,14 @@ h3 {
 }
 
 
+a,
+.btn-default {
+    &:hover {
+        color: var(--color-focus);
+        color: red;
+    }
+}
+
 
 .layout {
     transition: 0.3s;
@@ -186,6 +194,7 @@ textarea {
 
 .slide-content-vertical-hidden {
     max-height: 0vh;
+    visibility: hidden;
 }
 
 .show-preview .footer {
@@ -400,4 +409,35 @@ textarea {
 
 .nav {
     transition: 0.3s transform;
+}
+
+
+/** focus */
+
+summary:focus,
+a:focus,
+button:focus,
+label:focus-within {
+
+    color: var(--color-focus);
+    border-color: var(--color-focus);
+    outline: none;
+    outline-color: var(--color-focus);
+
+    use {
+        stroke-width: 12px;
+    }
+
+}
+
+.lnk-github:focus {
+
+    color: #fff;
+    outline: none;
+
+    &:before {
+        border-right-color: var(--color-focus);
+        border-top-color: var(--color-focus);
+    }
+
 }
