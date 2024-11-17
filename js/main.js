@@ -73,7 +73,7 @@ for (let i = 0, len = inputs.length; len && i < len; i++) {
 
 
 // add test example
-inputUrl.dispatchEvent(new Event('input'));
+//inputUrl.dispatchEvent(new Event('input'));
 
 
 //updateOptions(inputs)
