@@ -30,16 +30,20 @@
 
 .autocomplete-result-li {
     cursor: pointer;
-    padding: 0.3em;
+
+
 }
 
 .autocomplete-result-link{
-    text-decoration:none;
-    color:inherit
+    text-decoration: none;
+    display: block;
+    background-color: var(--color-text, #000);
+    color: var(--color-bg, #fff);
+    padding:0.3em;
 }
 
-.autocomplete-result-li:hover {
-    background-color: var(--color-text, #000);
+.autocomplete-result-li:hover a {
+    background-color: var(--color-focus, #000);
     color: var(--color-bg, #fff);
 }
 

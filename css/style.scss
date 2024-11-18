@@ -34,15 +34,13 @@ $xl: 1600px;
     --color-scroll-thumb-hover: var(--color2);
     --hellgrau: #eee;
 
-    --color-focus: hsl(180, 80%, 20%);
-    --focus-color: hsl(180, 80%, 20%);
-    --focus-color: #000;
+    --color-focus: hsla(0, 70%, 30%, 1);
     --input-border-color: #777;
     --focus-border-color: var(--focus-color);
     --input-padding: 0.3em;
     --label-font-weight: 700;
     --label-color: #000;
-    --selection: #000;
+    --selection: var(--color-focus);
 
 
 
@@ -178,12 +176,12 @@ textarea:active {
 }
 
 
+
 body {
     //--basefont: 'Fira Sans';
     font-family: var(--basefont);
     @extend .scrollbar
 }
-
 
 ::selection {
     background-color: var(--selection);
