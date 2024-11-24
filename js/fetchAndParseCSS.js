@@ -349,7 +349,7 @@ async function compileFilteredCSS(fontData, settings) {
     for (let f = 0; f < fontFaceArrFiltered.length; f++) {
         font = fontFaceArrFiltered[f];
         let fontDisplay = settings.display || 'swap';
-        let { fontFamily, fontWeight, fontStyle, src, srcLocal, srcAbsolute, subset, unicodeRange, formats } = font;
+        let { fontFamily, fontWeight, fontStretch, fontStyle, src, srcLocal, srcAbsolute, subset, unicodeRange, formats } = font;
 
 
         // filter old fomats
@@ -379,8 +379,10 @@ async function compileFilteredCSS(fontData, settings) {
         let fontDisplayProp = fontDisplay && fontDisplay !== 'none' ? `font-display: ${fontDisplay};\n` : '';
         //fontStyle = fontStyle ? fontStyle : 'normal';
 
+        let fontStretchProp = fontStretch!=='normal' ? `font-stretch: ${fontStretch};\n` : '';
+
         let subsetComment = subset ? `/* ${subset} */\n` : '';
-        let newCss = `${subsetComment}@font-face {\nfont-family: "${fontFamily}";\nfont-style: ${fontStyle};\nfont-weight: ${fontWeight};\nsrc: ${fontSrc};\n${fontDisplayProp}${propUnicodeRange}}\n\n`;
+        let newCss = `${subsetComment}@font-face {\nfont-family: "${fontFamily}";\nfont-style: ${fontStyle};\nfont-weight: ${fontWeight};\n ${fontStretchProp} src: ${fontSrc};\n${fontDisplayProp}${propUnicodeRange}}\n\n`;
 
         css += newCss;
 

@@ -6,6 +6,8 @@ function getFilterInputs(fontData=[], radios=[], presets={}, exclude=[], addLabe
         subset: [],
     }
 
+    //console.log('fontData', fontData);
+
     fontData.fontFaceArr.forEach(font => {
         fontProperties.fontWeight.push(font.fontWeight)
         fontProperties.fontStyle.push(font.fontStyle)
