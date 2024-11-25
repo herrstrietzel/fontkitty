@@ -29,6 +29,14 @@ let fontData = {
     cache: {}
 }
 
+// load fontlist
+let fontList = [];
+(async () => {
+    let fontlistCacheUrl = 'https://herrstrietzel.github.io/google-font-finder/cache/fontList_merged.json';
+    let res = await fetch(fontlistCacheUrl);
+    fontList = await res.json();
+})();
+
 // filter input defaults
 let radios = [];
 let presets = {
@@ -37,7 +45,7 @@ let presets = {
     subset: ['all']
 };
 let exclude = [];
-let labels = ['Font weights', 'Font styles',  'Subsets/languages'];
+let labels = ['Font weights', 'Font styles', 'Subsets/languages'];
 
 
 for (let i = 0, len = inputs.length; len && i < len; i++) {
@@ -45,6 +53,7 @@ for (let i = 0, len = inputs.length; len && i < len; i++) {
 
     inp.addEventListener('input', async (e) => {
 
+        linkGF.innerHTML='';
         let value = inp.value;
         let url = inputUrl.value;
 
@@ -52,10 +61,10 @@ for (let i = 0, len = inputs.length; len && i < len; i++) {
          * if is url field
          * reset if url was changed
          */
-        if (inp.id === 'inputUrl' || (inp.id === 'inputCustomSubset' && url.includes('googleapis.com')) ) {
+        if (inp.id === 'inputUrl' || (inp.id === 'inputCustomSubset' && url.includes('googleapis.com'))) {
 
             //url too short
-            if ( url.lenghth < 5 || (!url.includes('http') || !url.includes('/')) ) return false
+            if (url.lenghth < 5 || (!url.includes('http') || !url.includes('/'))) return false
 
             // update input 
             await updateFontsInputAndCSS(url)
@@ -65,6 +74,28 @@ for (let i = 0, len = inputs.length; len && i < len; i++) {
         }
 
         await updateFilteredCSS(fontData, settings);
+
+        /**
+         * check availability on google fonts
+         */
+
+        //if is google font
+        //console.log('fontList', fontList);
+        //console.log('fontData', fontData);
+
+        let item = fontList.filter(it => { return it.family === fontData.fontFaceArr[0].fontFamily })
+        let isGoogleFont = item.length
+
+        if(isGoogleFont){
+            let family = fontData.fontFaceArr[0].fontFamily;
+            let familyUrl = family.replaceAll(' ', '+')
+            linkGF.innerHTML=`<p class="txt-cnt"><strong>»${family}«</strong> is a google font. <br> 
+            You can get a more optimized fontkit using fontkitty's big sister 
+            <strong>gffi – a google font finder</strong> which is specialized for google fonts and provides advanced options like variable font axis removal or downloading complete (unsubset version). <br> <a data-icon="arrow-right" rel="noopener noreferrer" href="https://herrstrietzel.github.io/google-font-finder/font/?family=${familyUrl}"><svg viewBox="0 0 100 100" class="icn-svg icn-arrow-right"><use href="#icn-arrow-right"></use></svg> Open »${family}« in gffi</a></p>`;
+
+        }
+        //console.log(isGoogleFont, fontData, item, fontData.fontFaceArr[0]);
+
 
     })
 }
@@ -299,7 +330,7 @@ function getAbsoluteURLs(cssUrl, font) {
 function getLocalFontName(font) {
 
     let { fontFamily, fontWeight, fontStyle, fontStretch, subset, src } = font;
-    subset = settings.customSubset ? 'text_'+settings.customSubset : subset;
+    subset = settings.customSubset ? 'text_' + settings.customSubset : subset;
 
     /**
      * create readable font file names
@@ -453,7 +484,7 @@ async function renderPreview() {
     })
 
     //add to preview iframe
-    
+
     //    
 
     iframePreview.srcdoc = `<!doctype html>
@@ -468,7 +499,7 @@ async function renderPreview() {
     ${html}
     </body>
     </html>`;
-    
+
     fontData.sampleHTML = html;
 }
 
