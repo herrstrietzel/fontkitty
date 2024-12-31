@@ -159,7 +159,7 @@ async function getFontFaceObjectArr(url) {
 
             // if is google you can add a custom subset param
             if( url.includes('googleapis.com')  && url.includes('?family=')   ){
-                let textQuery = settings.customSubset ? `&text=${settings.customSubset}` : '';
+                let textQuery = settings.customSubset ? `&text=${encodeURIComponent(settings.customSubset)}` : '';
                 url +=textQuery;
             }
 
